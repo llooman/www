@@ -1,0 +1,175 @@
+
+<script type="text/javascript">
+
+var myrefresh=null;
+var sensorId = 500 ;
+var nodeId = 5;
+var nodeName="nodeName";
+ 
+ 
+function initDashboard( parm )
+{
+	if(parm)
+	{
+		sensorId = parm;
+		nodeId = Math.floor(sensorId / 100);
+		nodeName = nodeId2Name(nodeId);
+	}
+ 
+	refreshError = false;
+	refreshOptions();	
+}
+
+function refresh(delay)
+{
+	if(delay==null)delay=400;
+	myrefresh = setTimeout(function(){refreshOptions();clearTimeout(myrefresh);}, delay);
+}
+ 
+//function sendParm(fieldName, newValue, delay)	{sendParm3( sensorId, fieldName, newValue);	refresh(delay);}
+
+function sendParm(id, newValue, delay)	{sendParm2(nodeId, id, newValue);	refresh(delay);}
+
+function setSensParm( fieldName )
+{	
+	var inputField = $('input#'+fieldName); 	
+	var newVal = inputField.val();
+
+	//console.log("setSensParm: sensorId="+sensorId+" fieldName="+fieldName+" newVal="+newVal);
+
+	if (  inputField.val() == inputField.attr('currentvalue') )  return; 	
+ 
+	//console.log("doJsonCmd: sensorId="+sensorId+" fieldName="+fieldName+" newVal="+newVal);
+	
+	doJsonCmd( "setSensParm", sensorId+'&'+fieldName+'&'+newVal||''  );	
+	refresh();
+}
+ 
+function refreshOptions()
+{	 
+	showSensorDetails("sensor", sensorId, true );
+	$('#sensorId').text( sensorId );
+	$('a#detailName').text( nodeName );
+}
+
+ 
+</script>
+<ul class="menu001" style="background:#008078;">
+	<li onclick="showDetails();"><a id="detailName">Details</a></li>
+	<li onclick="showSensors();"><a>Sensors</a> </li>
+	<li><a id="sensorId">Sensor</a> </li>
+</ul>
+ 
+<section id="sensorOptions"  >
+
+<table class="options" >
+<thead>
+	<colgroup>
+		<col width="50%"/><col width="50%"/>
+	</colgroup>
+</thead>
+<tbody>
+
+ 
+	<div id="mvcError" class="homeloo"></div>
+
+ 
+<!-- 
+{"sensor":{"1":["id",543]
+,"2":["name","Buiten"]
+,"3":["dec","1"]
+,"4":["trace","false"]
+,"5":["log","true"]
+,"6":["total","false"]
+,"7":["enabled","1"]},"message":"","retCode":0} --> 
+
+ 		
+	<tr title="Stel sample tijd in (sec)">
+		<td>name</td>
+		<td><div class="veld">	
+			 
+			<div><input id="name" type="text" onchange="setSensParm('name');" currentvalue="" /></div>
+		 
+			</div></td>
+	</tr>
+
+	<tr title="Stel sample tijd in (sec)">
+		<td>enabled</td>
+		<td><div class="veld">	
+			 
+			<div><input id="enabled" type="number" onchange="setSensParm('enabled');" currentvalue="" /></div>
+		 
+			</div></td>
+	</tr>
+
+	<tr title="Stel sample tijd in (sec)">
+		<td>decimal factor</td>
+		<td><div class="veld">	
+			 
+			<div><input id="dec" type="number" onchange="setSensParm('dec');" currentvalue="" /></div>
+			 
+			</div></td>
+	</tr>	
+	
+	<tr title="Stel sample tijd in (sec)">
+		<td>refresh</td>
+		<td><div class="veld">	
+			 
+			<div><input id="refresh" type="number" onchange="setSensParm('refresh');" currentvalue="" /></div>
+			 
+			</div></td>
+	</tr>
+	
+	<tr  >
+		<td>addOption</td>
+		<td><div class="veld">	
+			 
+			<div><input id="addOption" type="number" onchange="setSensParm('addOption');" currentvalue="" /></div>
+			 
+			</div></td>
+	</tr>
+	
+	<tr title="Stel sample tijd in (sec)">
+		<td>totalOption</td>
+		<td><div class="veld">	
+			 
+			<div><input id="totalOption" type="number" onchange="setSensParm('totalOption');" currentvalue="" /></div>
+			 
+			</div></td>
+	</tr>
+
+	<tr>
+		<td>trace</td>
+		<td><div class="veld">			 
+			<div><input id="trace" type="text" onchange="setSensParm('trace');" currentvalue="" /></div>		 
+			</div></td>
+	</tr>
+		
+ 
+	    
+<tr><td>Clear log</td>
+		<td  >
+		<label class="switch">
+	      <input class="switch-input" type="checkbox" id="logDel" onclick="sendParm( 'logDel');"/>
+	      <span class="switch-label" data-on="AAN" data-off="UIT"></span>
+	      <span class="switch-handle"></span>
+	    </label></td>
+	    </tr>
+   
+</tbody>
+</table>
+ 
+<table  border="1" id="ardLog">
+<thead>
+	<colgroup>
+		<col align="center"/><col align="left"/><col align="left"/>
+	</colgroup>
+</thead>
+<tbody></tbody>
+</table>
+
+
+ 
+</section>
+	
+

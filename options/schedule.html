@@ -1,0 +1,138 @@
+
+<script type="text/javascript">
+
+var myrefresh=null;
+var recId = 500 ;
+ 
+ 
+function initDashboard( parm )
+{
+	if(parm)
+	{
+		recId = parm;
+	}
+ 
+	refreshError = false;
+	refreshOptions();	
+}
+
+function refresh(delay)
+{
+	if(delay==null)delay=400;
+	myrefresh = setTimeout(function(){refreshOptions();clearTimeout(myrefresh);}, delay);
+}
+ 
+//function sendParm(fieldName, newValue, delay)	{sendParm3( sensorId, fieldName, newValue);	refresh(delay);}
+
+function sendParm(id, newValue, delay)	{sendParm2(nodeId, id, newValue);	refresh(delay);}
+
+function updateField( fieldName )
+{	
+	var inputField = $('input#'+fieldName); 	
+	var newVal = inputField.val();
+
+	//console.log("setSensParm: sensorId="+sensorId+" fieldName="+fieldName+" newVal="+newVal);
+
+	if (  inputField.val() == inputField.attr('currentvalue') )  return; 	
+ 
+	//console.log("doJsonCmd: sensorId="+sensorId+" fieldName="+fieldName+" newVal="+newVal);
+	
+	doJsonCmd( "setSchedule", recId+'&'+fieldName+'&'+newVal||'');
+	
+	
+	refresh();
+}
+ 
+function refreshOptions()
+{	 
+	drawDataFromArray("schedule", recId, true );
+	//$('#recId').text( recId );
+	//$('a#detailName').text( nodeName );
+}
+
+ 
+</script>
+<ul class="menu001" style="background:#008078;">
+	<li onclick="loadDashboard('options/schedules.html',event,1);"><a>Schedules</a></li>
+</ul>
+ 
+<section id="sensorOptions"  >
+
+<table class="options" >
+<thead>
+	<colgroup>
+		<col width="25%"/><col width="75%"/>
+	</colgroup>
+</thead>
+<tbody>
+
+ 
+	<div id="mvcError" class="homeloo"></div>
+
+ 		
+	<tr title=" ">
+		<td>name</td>
+		<td><div class="txtveld">	
+			 
+			<div><input id="name" type="text" onchange="updateField('name');" currentvalue="" /></div>
+		 
+			</div></td>
+	</tr>
+
+	<tr title=" ">
+		<td>enabled</td>
+		<td><div class="veld">	
+			 
+			<div><input id="enabled" type="number" onchange="updateField('enabled');" currentvalue="" /></div>
+		 
+			</div></td>
+	</tr>
+
+	<tr title=" ">
+		<td>schedule</td>
+		<td><div class="txtveld">	
+			 
+			<div><input id="schedule" type="text" onchange="updateField('schedule');" currentvalue="" /></div>
+			 
+			</div></td>
+	</tr>	
+	
+	<tr title=" ">
+		<td>action</td>
+		<td><div class="txtveld">	
+			 
+			<div><input id="action" type="text" onchange="updateField('action');" currentvalue="" /></div>
+			 
+			</div></td>
+	</tr>
+	
+ 
+		
+ 
+	    
+<tr><td>Clear log</td>
+		<td  >
+		<label class="switch">
+	      <input class="switch-input" type="checkbox" id="logDel" onclick="sendParm( 'logDel');"/>
+	      <span class="switch-label" data-on="AAN" data-off="UIT"></span>
+	      <span class="switch-handle"></span>
+	    </label></td>
+	    </tr>
+   
+</tbody>
+</table>
+ 
+<table  border="1" id="ardLog">
+<thead>
+	<colgroup>
+		<col align="center"/><col align="left"/><col align="left"/>
+	</colgroup>
+</thead>
+<tbody></tbody>
+</table>
+
+
+ 
+</section>
+	
+

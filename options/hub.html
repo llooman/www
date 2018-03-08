@@ -1,0 +1,171 @@
+<script type="text/javascript">
+ 
+var nodeId=11;
+var html='hub.html';
+var myrefresh=null;
+
+function initDashboard( parm )
+{
+ 
+	//logg(1,"hub.html.initDashboard parm="+parm);
+	if(parm)
+	{
+		nodeId = parm;
+		nodeName = nodeId2Name(nodeId);
+	}
+	refreshError = false;
+	showDetails2();	
+}
+ 
+
+function setParm(id, delta)				{setParm2(nodeId, id, delta);		refresh();}
+function sendParm(id, newValue, delay)	{sendParm2(nodeId, id, newValue);	refresh(delay);}
+
+
+function refresh(delay)
+{
+	if(delay==null)delay=400;
+	myrefresh = setTimeout(function(){showDetails2();clearTimeout(myrefresh);}, delay);
+}
+
+
+function showDetails2()
+{
+	showNode(nodeId, true ); // clear error
+	showNodeLog(nodeId,"2"); // day's in the past
+	mvcSet2( 'logDel', false );
+	mvcSet2( 'hang', false );
+	mvcSet2( 'reconnect', false );
+	//$('a#detailName').text( nodeName );
+}
+</script>
+
+
+<ul class="menu001" style="background:#008078;">
+	<li onclick="loadDetails();"><a id="caption">Caption</a></li>
+	<li onclick="loadSensors();"><a>Sensors</a> </li>
+</ul>
+	
+<section id="optionSection"  >
+
+	
+<table class="options" >
+<thead>
+	<colgroup>
+		<col width="50%"/><col width="50%"/>
+	</colgroup>
+</thead>
+<tbody>
+ 
+<div id="mvcError" class="homeloo"></div>
+
+  Latest: <span id="last" />   up: <span id="up" /> temp: <span id="s12" />
+ 
+ 	<tr><td colspan="2">Childs snd:&nbsp;<span id="s74" title="s74" />/<span id="s75" title="s75"/>/<span id="s76" title="s76"/>
+	                    &nbsp;rd:&nbsp;<span id="s71" title="s71"/>/<span id="s72" title="s72"/>/<span id="s73" title="s73"/></td></tr>   
+	                     
+	<tr><td colspan="2">Prnt snd:&nbsp;<span id="s84"  title="s84"/>/<span id="s85" title="s85"/>/<span id="s86" title="s86"/>
+	                    &nbsp;rd:&nbsp;<span id="s81" title="s81"/>/<span id="s82" title="s82"/>/<span id="s83" title="s83"/></td></tr> 	
+	                    
+    <tr><td>Led</td>
+		<td><label class="switch">
+				<input class="switch-input" type="checkbox" id="s50" onclick="setParm('s50');"/>
+				<span class="switch-label" data-on="AAN" data-off="UIT"/>
+				<span class="switch-handle"/>
+			</label></td>
+	</tr>
+
+ 	<tr>	<td>  rc1   </td> 
+		<td   >
+		<label class="switch">
+	      <input class="switch-input" type="checkbox" id="rc1" onclick="setParm('rc1');"/>
+	      <span class="switch-label" data-on="AAN" data-off="UIT"/>
+	      <span class="switch-handle"/>
+	    </label>
+	</td></tr>
+ 	<tr>	<td>  rc2   </td> 
+		<td   >
+		<label class="switch">
+	      <input class="switch-input" type="checkbox" id="rc2" onclick="setParm('rc2');"/>
+	      <span class="switch-label" data-on="AAN" data-off="UIT"/>
+	      <span class="switch-handle"/>
+	    </label>
+	</td></tr>	    
+ 	<tr>	<td>  rc3   </td> 
+		<td   >
+		<label class="switch">
+	      <input class="switch-input" type="checkbox" id="rc3" onclick="setParm('rc3');"/>
+	      <span class="switch-label" data-on="AAN" data-off="UIT"/>
+	      <span class="switch-handle"/>
+	    </label>
+	</td></tr>	
+ 	<tr title="Stel sample tijd in (sec)">
+		<td>Sample periode</td>
+		<td><div class="veld">	
+			<div class="veld_left"><span onclick="setParm('s02',-10);">-</span></div>
+			<div><input id="s02" type="number" size="3" min="0" max="99"  
+			       		onfocusout="setParm('s02');" currentvalue="" /></div>
+			<div class="veld_right"><span onclick="setParm('s02',10);">+</span></div>
+			</div></td>
+	</tr>
+
+ 	<tr><td>Log mqtt</td>
+		<td><label class="switch">
+				<input class="switch-input" type="checkbox" id="chkLogMqtt" onclick="setParm('chkLogMqtt');"/>
+				<span class="switch-label" data-on="AAN" data-off="UIT"/>
+				<span class="switch-handle"/>
+			</label></td>
+	</tr>	
+
+ <tr>	<td>  ReConnect   </td> 
+		<td   >
+		<label class="switch">
+	      <input class="switch-input" type="checkbox" id="reconnect" onclick="sendParm('reconnect');"/>
+	      <span class="switch-label" data-on="AAN" data-off="UIT"/>
+	      <span class="switch-handle"/>
+	    </label></td></tr>
+	    
+	<tr>	<td>  ResetBootCount </td> 
+		<td   >
+		<label class="switch">
+	      <input class="switch-input" type="checkbox" id="rstBcount" onclick="sendParm('rstBcount',null,300);"/>
+	      <span class="switch-label" data-on="AAN" data-off="UIT"/>
+	      <span class="switch-handle"/>
+	    </label></td></tr>	
+	    
+ <tr>	<td>  Hang   </td> 
+		<td   >
+		<label class="switch">
+	      <input class="switch-input" type="checkbox" id="hang" onclick="sendParm('hang');"/>
+	      <span class="switch-label" data-on="AAN" data-off="UIT"/>
+	      <span class="switch-handle"/>
+	    </label></td></tr>
+	    
+
+<tr><td>Clear log</td>
+		<td  >
+		<label class="switch">
+	      <input class="switch-input" type="checkbox" id="logDel" onclick="sendParm('logDel');"/>
+	      <span class="switch-label" data-on="AAN" data-off="UIT"/>
+	      <span class="switch-handle"/>
+	    </label></td>
+</tr>	
+
+ 	
+</tbody>
+</table>
+ 
+ 
+
+<table  border="1" id="ardLog">
+<thead>
+	<colgroup>
+		<col align="center"/><col align="left"/><col align="left"/>
+	</colgroup>
+</thead>
+<tbody></tbody>
+</table>
+
+</section>
+	
+

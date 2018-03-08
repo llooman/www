@@ -1,0 +1,156 @@
+
+<script type="text/javascript">
+
+var nodeName='Dimmer';
+var nodeId=4;
+var html='dimmer.html';
+
+function initDashboard( parm )
+{
+	if(parm)
+	{
+		nodeId = parm;
+		nodeName = nodeId2Name(nodeId);
+	}
+	//alert("initDashboard node="+nodeName);
+	refreshError = false;
+	showDetails2();	
+}
+ 
+var myrefresh=null;
+
+function refresh(delay)
+{
+	if(delay==null)delay=200;
+	myrefresh = setTimeout(function(){showDetails2();clearTimeout(myrefresh);}, delay);
+}
+
+
+function setDimParm(e, id, delta)			 {e.stopPropagation(); setParm2(nodeId, id, delta);	    refresh();}
+function sendDimParm(e, id, newValue, delay) {e.stopPropagation(); sendParm2(nodeId, id, newValue);	refresh(delay);}
+
+ 
+function showDetails2()
+{
+	showNode(nodeId, true ); // clear error
+	showNodeLog(nodeId,"2"); // day's in the past
+	mvcSet2( 'logDel', false  );
+	mvcSet2( 'hang', false  );
+	//$('a#detailName').text( nodeName );
+}
+</script>
+
+
+<ul class="menu001" style="background:#008078;">
+	<li onclick="loadDetails();"><a id="caption">Caption</a></li>
+	<li onclick="loadSensors();"><a>Sensors</a> </li>
+</ul>
+	
+<section id="dimmerSection"   >
+
+<table class="options" >
+<thead>
+	<colgroup>
+		<col width="50%"></col><col width="50%"></col>
+	</colgroup>
+</thead>
+<tbody>
+   
+<div id="mvcError" class="homeloo"></div>
+
+
+
+ 	<tr><td colspan="2">Vin: <span id="s11" ></span>
+ 	 <br/>Latest: <span id="last" ></span>   up: <span id="up" >
+ 	 </td></tr>
+
+	<tr><td colspan="2">Netw snd:&nbsp;<span id="s84" ></span>/<span id="s85"></span>/<span id="s86"></span>
+	                    &nbsp;rd:&nbsp;<span id="s81" ></span>/<span id="s82"></span>/<span id="s83"></span></td></tr> 	
+ 
+     
+     <tr><td>Active</td>
+		<td><label class="switch">
+				<input class="switch-input" type="checkbox" id="chkActive" onclick="setDimParm(event, 'chkActive');"/>
+				<span class="switch-label" data-on="AAN" data-off="UIT"></span>
+				<span class="switch-handle"></span>
+			</label></td>
+	</tr>
+     <!-- setParm2(nodeId,'rstBcount') setDimParm(event, 's50');   -->
+    <tr><td>Led</td>
+		<td><label class="switch">
+				<input class="switch-input" type="checkbox" id="s50" onclick="setParm2(nodeId,'s50');doDelay();"/>
+				<span class="switch-label" data-on="AAN" data-off="UIT"></span>
+				<span class="switch-handle"></span>
+			</label></td>
+	</tr>
+     
+ 	<tr><td colspan="2">
+		<fieldset><legend>Dimmer</legend>	
+		<input id="s52" type="range" min="0" max="100" value="0" step="5" oninput="setDimParm(event, 's52')" />
+		</fieldset>
+	</td></tr>
+ 
+ 
+ 	<tr title="Stel sample tijd in (sec)">
+		<td>Sample periode</td>
+		<td><div class="veld">	
+			<div class="veld_left"><span onclick="setDimParm(event, 's02',-10);">-</span></div>
+			<div><input id="s02" type="number" size="3" min="0" max="99"  
+			       		onfocusout="setDimParm(event, 's02');" currentvalue="" /></div>
+			<div class="veld_right"><span onclick="setDimParm(event, 's02',10);">+</span></div>
+			</div></td>
+	</tr>
+	 	<tr title="Stel sample tijd in (sec)">
+		<td>Default</td>
+		<td><div class="veld">	
+			<div class="veld_left"><span onclick="setDimParm(event, 's53',-3);">-</span></div>
+			<div><input id="s53" type="number" size="3" min="0" max="99"  
+			       		onfocusout="setDimParm(event, 's53');" currentvalue="" /></div>
+			<div class="veld_right"><span onclick="setDimParm(event, 's53',3);">+</span></div>
+			</div></td>
+	</tr>
+	
+	<tr>	<td>  ResetBootCount </td> 
+		<td   >
+		<label class="switch">
+	      <input class="switch-input" type="checkbox" id="rstBcount" onclick="sendDimParm(event, 'rstBcount',null,300);"/>
+	      <span class="switch-label" data-on="AAN" data-off="UIT"></span>
+	      <span class="switch-handle"></span>
+	    </label></td></tr>	
+	    
+	<tr>	<td>  Hang </td> 
+		<td   >
+		<label class="switch">
+	      <input class="switch-input" type="checkbox" id="hang" onclick="sendDimParm(event, 'hang',null,1000);"/>
+	      <span class="switch-label" data-on="AAN" data-off="UIT"></span>
+	      <span class="switch-handle"></span>
+	    </label></td></tr>
+	    
+<tr><td>Clear log</td>
+		<td  >
+		<label class="switch">
+	      <input class="switch-input" type="checkbox" id="logDel" onclick="sendDimParm(event,  'logDel');"/>
+	      <span class="switch-label" data-on="AAN" data-off="UIT"></span>
+	      <span class="switch-handle"></span>
+	    </label></td>
+	    </tr>
+   
+</tbody>	
+ 
+	
+</tbody>
+</table>
+ 
+
+<table  border="1" id="ardLog">
+<thead>
+	<colgroup>
+		<col align="center"/><col align="left"/><col align="left"/>
+	</colgroup>
+</thead>
+<tbody></tbody>
+</table>
+
+</section>
+	
+

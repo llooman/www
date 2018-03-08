@@ -1,0 +1,306 @@
+/* ============
+  styles for the  Loo Home domotica project 
+  visibility:hidden; space used display:none; no space used
+  .phone { display:none} display:block //.menu { display:inline;} 
+*/
+::root {
+  var-main-bg-color: brown;
+}
+
+.knop {
+    border: none;
+    color: white;
+    padding: 0.5em 0.5em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+    border-radius: 60%;
+}
+
+.green {
+    background-color: #4CAF50; /* Green */
+}
+.red {background-color: #f44336;} /* Red */ 
+
+ 
+ /* Popup container */
+.popup {
+    position: relative;
+    left: 25px;
+    top: -25px; 
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* The actual popup (appears on top) */ /*50%* 100px/ /* top: 100px;*/
+.popup .popuptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;  
+    margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
+}
+
+/* Add animation (fade in the popup)
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}  */
+
+.invisible {visibility:hidden;}
+.hide   {display:none;}
+
+.opvallen { transition: width 2s; } /*  <> IE9 */
+.opvallen:hover { width:300px; }
+
+.verticalMiddle { vertical-align: middle; }  /* vertical align is not working as you excpect !!! */
+.verticalMiddleHeight { line-height: 2em; }
+
+
+/*  * { margin:0; padding:0; } /* to remove the top and left whitespace */
+/* html, body { width:100%; height:100%; } /* just to be sure these are full screen  */
+/* canvas.mainCanvas { display:block; width:500;  height:400;} /* To remove the scrollbars  width="500" height="420"  */
+
+/* table.banner  { width:100%; } */
+
+.banner table  { width:100%; }
+.banner img { width: 90%; height: auto;}
+.banner .left { width:110px;}
+.banner .right { width:110px;}
+
+.indicators { color:black; font-size: 1.5em;}
+
+body {font-family: Arial, sans-serif; border:0; padding:0;  margin: 0; background-color: white; }  
+// h3  {   margin: 0; }
+header { background-color: CadetBlue  ;   }
+nav { background-color: #5a8078;  }  /*5a8078 538065*/
+section { color:white; 	background-color:black; }         /* wit op zwart */
+zwartOpWit { color: black; 	background-color: white; }
+footer { background-color: #5a8078  ;   }
+html { -webkit-text-size-adjust: 100%;
+		color:white;
+		background-color:black;}
+div { -webkit-text-size-adjust: 100%;
+		color:white;
+		background-color:black;}
+ 
+/* IE 10
+@-ms-viewport { width: device-width; }
+*/
+
+
+/*  layout options form -------------------------------  /*420px; /* compact width on large screens*/  */
+
+
+
+
+table.options { 
+	width:		100% 
+	font-size: 	1.1em;  
+	border:		0px solid red;
+	padding: 	8px;     												}
+table.options > tbody > tr  > td {  padding: 10px 10px 10px 10px; }	
+table.options > tbody > tr > td:nth-child(1)   { text-align: left; }
+table.options > tbody > tr > td:nth-child(2)  { text-align: left; }
+
+div.recent  	{color:yellow;}
+span.recent  	{color:yellow;}
+div.recent1  	{color:yellow;}
+span.recent1  	{color:yellow;}
+div.recent2  	{color:orange;}
+span.recent2  	{color:orange;}
+div.recent3  	{color:red;}
+span.recent3  	{color:red;}
+input.notrecent {background-color:orange;}
+
+.veld > div { display: table; float: left;  height:32px; background: lightGrey; text-align: center;}
+.veld_right{ border-radius: 0 16px 16px 0; width: 32px; height: inherit; background: inherit; }
+.veld_left{ border-radius: 16px 0 0 16px; width: 32px; height: inherit; background: inherit; } 
+.veld > div > input, .veld > div > span {
+    display: table-cell;
+    vertical-align:middle; /**/
+    font-size: 16;
+	width: 60px;
+    height: inherit;  
+    border:0; padding: 0 0 0 2px ;  margin:0 ; }
+    
+.txtveld > div { display: table; float: left;  height:32px; background: lightGrey; text-align: center;}
+.txtveld > div > input, .veld > div > span {
+    display: table-cell;
+    vertical-align:middle; /**/
+    font-size: 16;
+	width:180px;
+    height: inherit;  
+    border:0; padding: 0 0 0 2px ;  margin:0 ; }
+
+
+/* horizontal menu for ul with vertical dropdowns  */
+/* java scripts toggleMenu() and hideMenu() are used for expand and collapse */
+/* the hideMenu is also called from html body level to auto collapse when clicking outside the menu li's */
+/* as a workaround for propagation of onclick's w*/
+
+
+
+.mainmenu > li > ul {  display: none; }  /* sub menus ingeklapt */
+.mainmenu { list-style-type: none; height: 40px; padding: 0; margin: 0; }  /* geen bullets */
+.mainmenu ul{ list-style-type: none; height: 40px; padding: 0; margin: 0; } /* geen bullets */
+.mainmenu li { float: left; position: relative; padding: 0; line-height: 40px; background: #5a8078  }
+.mainmenu li:hover { background-position: 0 -40px; }
+.mainmenu li a { display: block; padding: 0 15px; color: #fff; text-decoration: none; }
+.mainmenu li a:hover { color: #000000; } /*a3f1d7*/ 
+.mainmenu li ul { position: absolute; left: 0; width: 8em; z-index: 9999;}
+.mainmenu li ul li { display:block; float: left; clear: left; position: static; width:120px;  z-index: 9999; }
+.mainmenu li ul li a { background: #63867f; z-index: 9999;}
+
+
+
+/*.menu001 > li > ul {  display: none; }  /* sub menus ingeklapt */
+.menu001 { list-style-type: none; height: 40px; padding: 0; margin: 0; }        /* geen bullets */
+.menu001 ul{ list-style-type: none; height: 40px; padding: 0; margin: 0; } 	    /* geen bullets */
+.menu001 li { float: left; position: relative; padding: 0; line-height: 40px; } /* background: #008078*/
+.menu001 li:hover { background-position: 0 -40px; }
+.menu001 li a { display: block; padding: 0 15px; color: #fff; text-decoration: none; }
+.menu001 li a:hover { color: #000000; }
+
+
+/*a3f1d7*/ 
+/*.menu001 li ul { position: absolute; left: 0; width: 8em; z-index: 9999;}/**/
+/*.menu001 li ul li { display:block; float: left; clear: left; position: static; width:120px;  z-index: 9999; }/**/
+/*.menu001 li ul li a { background: #00867f; z-index: 9999;} /**/
+
+
+
+/*  --------------------------------------------------  */
+
+@media screen and (orientation:portrait) {
+//.orientation  { font-size: 100%;	}
+.landscape {display:none;}
+}
+@media screen and (orientation:landscape) {
+//.orientation  { font-size: 100%;	}
+.portrait {display:none;}
+}
+  
+/*  computer 
+//@media screen and (min-width: 770px) {
+*/
+@media screen and (min-width: 251mm) {
+.homeloo  {font-size:100%;}
+.tablet  {display:none;}
+.phone  {display:none;}
+.tabletPhone  {display:none;}
+}
+/* tablet 
+//@media screen and (min-width: 641px) and (max-width:769px)  {
+*/
+@media screen and (min-width: 101mm) and (max-width:250mm)  {
+.homeloo {font-size:100%;}
+.computer {display:none;}
+.phone  {display:none;}
+.computerPhone {display:none;}
+}
+/* phone only screen  
+//@media screen and (min-width: 0px) and (max-width:640px)  {
+*/
+@media screen and  (max-width: 100mm)  {
+.homeloo  {font-size:110%;} 
+.computer {display:none;}
+.tablet  {display:none;}
+.computerTablet  {display:none;}
+}
+/* phone only screen  */
+@media only print and (min-width: 0px) and (max-width:399px)  {
+ .homeloo  { font-size: 6px;} 
+}
+
+
+
+pre.code {
+    padding: 5px;
+    background-color: #eee;
+    border: 2px dashed gray
+}
+
+div.light a {
+    margin-left: auto;
+    margin-right: auto;
+    background-image:url('../images/lights.png');
+    display: block;
+}
+
+
+a.off { background-position: 0 0; width: 258px; height: 299px; }
+a.on { background-position: -308px 0; width: 258px; height: 299px; }
+
+
+ 
+.schakelaar { width:50px; height:50px; /*same as the width*/
+    background-color:#ff0000; border:1px solid #ff0000; /*same colour as the background*/
+	background-image:url('../images/lights.png');
+    color:#fff;  font-size:0.8em;
+    /*set the border-radius at half the size of the width and height*/
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+    /*give the button a small drop shadow*/
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0, .75);
+    -moz-box-shadow: 0 0 10px rgba(0,0,0, .75);
+    box-shadow: 2px 2px 15px rgba(0,0,0, .75);
+    }
+    /***NOW STYLE THE BUTTON'S HOVER STATE***/
+.on:hover{ background:#c20b0b; border:1px solid #c20b0b;
+    /*reduce the size of the shadow to give a pushed effect*/
+    -webkit-box-shadow: 0px 0px 5px rgba(0,0,0, .75);
+    -moz-box-shadow: 0px 0px 5px rgba(0,0,0, .75);
+    box-shadow: 0px 0px 5px rgba(0,0,0, .75);
+    }
+
+
+aside  {      font-size:larger;
+            font-style:italic;
+            color:green;
+            float:right;
+            width:35%;
+            padding-left:5px;border: 1px solid red; 
+			background-color: Aqua ;
+        }
+
+ img {
+      width: 75%;
+      height: auto;
+   }
+   
+
+

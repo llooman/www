@@ -1,0 +1,75 @@
+
+<script type="text/javascript">
+
+var nodeId=5;
+var nodeName="ketel";	
+
+function initDashboard( parm ){
+
+//	if(parm)
+//	{
+//		nodeId = parm;
+//		nodeName = nodeId2Name(nodeId);
+//	}
+
+    
+    refreshOptions();		
+}
+
+function initOptions(){
+
+	refreshOptions();
+		
+}
+var myrefresh=null;
+
+function refresh(delay)
+{
+	if(delay==null)delay=400;
+	myrefresh = setTimeout(function(){refreshOptions();clearTimeout(myrefresh);}, delay);
+}
+
+function refreshOptions()
+{ 
+	refreshError = false;
+	drawTableFromArray('schedules', 12345);
+	//$('a#detailName').text( nodeId2Name(nodeId) );
+}
+
+function rowClick( rowId )
+{ 
+	//alert('rowClick rowId='+rowId);
+	
+	loadDashboard('options/schedule.html', event, rowId);
+} 
+
+function showNew()
+{
+	doJsonCmd( "newSchedule","x");
+	loadDashboard('options/schedule.html', event, "New");
+}
+ 
+ 
+</script>
+
+
+<ul class="menu001" style="background:#008078;">	 
+	<li onclick="loadDashboard('options/schedules.html',event,1);"><a>Schedules</a></li>
+	<li onclick="showNew();"><a>New</a></li>
+</ul>
+	
+<section id="scheduleOptions"  >
+
+<table  border="1" id="showTable">
+<thead>
+	<colgroup>
+		<col align="center"/><col align="left"/><col align="left"/>
+	</colgroup>
+</thead>
+<tbody></tbody>
+</table>
+
+ 
+</section>
+	
+

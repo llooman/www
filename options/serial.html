@@ -1,0 +1,143 @@
+
+<script type="text/javascript">
+ 
+var nodeName='Serial1';
+var nodeId=11;
+
+function initDashboard( parm )
+{
+	if(parm)
+	{
+		nodeId = parm;
+		nodeName = nodeId2Name(nodeId);
+	}
+	//alert("initDashboard node="+nodeName);
+	refreshError = false;
+	refreshOptions();	
+}
+ 
+function refreshOptions()
+{
+	showNode(nodeId, true ); // clear error
+	showNodeLog(nodeId,"2"); // day's in the past
+	mvcSet2( 'logDel', false  );
+	mvcSet2( 'hang', false  );
+	mvcSet2( 'reconnect', false  );
+	$('a#detailName').text( nodeName );
+}
+
+function setParm(id, delta)				{setParm2(nodeId, id, delta);		refresh();}
+function sendParm(id, newValue, delay)	{sendParm2(nodeId, id, newValue);	refresh(delay);}
+
+ 
+var myrefresh=null;
+
+function refresh(delay)
+{
+	if(delay==null)delay=400;
+	myrefresh = setTimeout(function(){refreshOptions();clearTimeout(myrefresh);}, delay);
+}
+ 
+</script>
+
+<ul class="menu001" style="background:#008078;">
+	<li onclick="showDetails();"><a id="detailName">Details</a></li>
+	<li onclick="showSensors();"><a>Sensors</a> </li>
+</ul>
+	
+<section id="optionSection"  >
+
+	
+<table class="options" >
+<thead>
+	<colgroup>
+		<col width="50%"/><col width="50%"/>
+	</colgroup>
+</thead>
+<tbody>
+ 
+<div id="mvcError" class="homeloo"></div>
+ 
+ 
+ 	<tr><td colspan="2">Netw snd:&nbsp;<span id="s74" ></span>/<span id="s75"></span>/<span id="s76"></span>
+	                    &nbsp;rd:&nbsp;<span id="s71" ></span>/<span id="s72"></span>/<span id="s73"></span></td></tr>    
+	<!--  tr><td colspan="2">Netw send:&nbsp;<span id="s06" ></span>/<span id="s07"></span>
+	                    &nbsp;recv:&nbsp;<span id="s08" ></span>/<span id="s09"></span></td></tr--> 
+    <tr><td>Led</td>
+		<td><label class="switch">
+				<input class="switch-input" type="checkbox" id="s50" onclick="setParm('s50');"/>
+				<span class="switch-label" data-on="AAN" data-off="UIT"></span>
+				<span class="switch-handle"></span>
+			</label></td>
+	</tr>
+	
+ 	<tr title="Stel sample tijd in (sec)">
+		<td>Sample periode</td>
+		<td><div class="veld">	
+			<div class="veld_left"><span onclick="setParm('sample',-10);">-</span></div>
+			<div><input id="sample" type="number" size="3" min="0" max="99"  
+			       		onfocusout="setParm('sample');" currentvalue="" /></div>
+			<div class="veld_right"><span onclick="setParm('sample',10);">+</span></div>
+			</div></td>
+	</tr>
+
+ 	<tr><td>Log mqtt</td>
+		<td><label class="switch">
+				<input class="switch-input" type="checkbox" id="chkLogMqtt" onclick="setParm('chkLogMqtt');"/>
+				<span class="switch-label" data-on="AAN" data-off="UIT"></span>
+				<span class="switch-handle"></span>
+			</label></td>
+	</tr>	
+
+ <tr>	<td>  ReConnect   </td> 
+		<td   >
+		<label class="switch">
+	      <input class="switch-input" type="checkbox" id="reconnect" onclick="sendParm('reconnect');"/>
+	      <span class="switch-label" data-on="AAN" data-off="UIT"></span>
+	      <span class="switch-handle"></span>
+	    </label></td></tr>
+	    
+	<tr>	<td>  ResetBootCount </td> 
+		<td   >
+		<label class="switch">
+	      <input class="switch-input" type="checkbox" id="rstBcount" onclick="sendParm('rstBcount',null,300);"/>
+	      <span class="switch-label" data-on="AAN" data-off="UIT"></span>
+	      <span class="switch-handle"></span>
+	    </label></td></tr>	
+	    
+ <tr>	<td>  Hang   </td> 
+		<td   >
+		<label class="switch">
+	      <input class="switch-input" type="checkbox" id="hang" onclick="sendParm('hang');"/>
+	      <span class="switch-label" data-on="AAN" data-off="UIT"></span>
+	      <span class="switch-handle"></span>
+	    </label></td></tr>
+	    
+
+<tr><td>Clear log</td>
+		<td  >
+		<label class="switch">
+	      <input class="switch-input" type="checkbox" id="logDel" onclick="sendParm('logDel');"/>
+	      <span class="switch-label" data-on="AAN" data-off="UIT"></span>
+	      <span class="switch-handle"></span>
+	    </label></td>
+</tr>	
+
+ 	
+</tbody>
+</table>
+ 
+ 
+
+<table  border="1" id="ardLog">
+<thead>
+	<colgroup>
+		<col align="center"/><col align="left"/><col align="left"/>
+	</colgroup>
+</thead>
+<tbody></tbody>
+</table>
+
+</section>
+	
+

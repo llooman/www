@@ -1,0 +1,56 @@
+
+
+<script type="text/javascript">
+
+function initDashboard()
+{		 
+	//log("Grafiek.html:initDashboard" );
+	graphLines = new Array(0); 
+	myGrafiek = new Grafiek( "tempGraph", initMyGrafiek, drawMyGrafiek, true );
+	
+	
+/*	
+	jQuery('#grafiek').on('swipeleft', function(e) {
+	  alert('swipeleft grafiek');
+	});
+	jQuery('#grafiek').on('swiperight', function(e) {
+		  alert('swiperight grafiek');
+	});
+*/	
+}
+/*
+function cmdRefreshGrafiek2( init ) 
+{		
+	if ( myGrafiek2 == null ) return;
+	if ( init == true )  {
+		myGrafiek2.init();
+	}
+	myGrafiek2.xDataStart =  Math.round( startDate.valueOf()/myGrafiek.xData2DateFactor); //startDate.valueOf(); 
+	myGrafiek2.refresh(); // event
+
+}*/
+</script>
+
+<section id="grafiek">
+<div id="error" class="homeloo"></div>
+<span id="graphSettings2">
+	<input type="checkbox" id="chk320"  onclick="setCheckCookie('chk320');cmdRefreshGrafiek();"/>Aanvoer 
+	<input type="checkbox" id="chk313"	onclick="setCheckCookie('chk313');cmdRefreshGrafiek();"/>Pomp 
+	<input type="checkbox" id="chk311" 	onclick="cmdRefreshGrafiek();setCheckCookie('chk311');"/>Grensmuur 
+
+	<input type="checkbox" id="chk543" 	onclick="setCheckCookie('chk543');cmdRefreshGrafiek();		" >Buiten 
+	<input type="checkbox" id="chk541" 	onclick="setCheckCookie('chk541');cmdRefreshGrafiek();		" >CV 
+	<input type="checkbox" id="chk547" 	onclick="setCheckCookie('chk547');cmdRefreshGrafiek();		" >Douch  
+	<input type="checkbox" id="chk527" 	onclick="setCheckCookie('chk527');cmdRefreshGrafiek();		" >Kraan  
+ 
+	<input type="checkbox" id="chk620" 	onclick="setCheckCookie('chk620');cmdRefreshGrafiek();		" >Gas 
+	<input type="checkbox" id="chk811" 	onclick="setCheckCookie('chk811');cmdRefreshGrafiek();		" >CloseIn 	 
+	<input type="checkbox" id="chk2123" onclick="setCheckCookie('chk2123');cmdRefreshGrafiek();		" >Detect 	 
+	
+</span>
+<figure>
+	<canvas id="tempGraph" height="325" style="border: 1px solid gray; background-color:#ffffff;">[No canvas support]</canvas> 
+</figure>
+
+
+</section>

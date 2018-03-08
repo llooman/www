@@ -1,0 +1,145 @@
+
+<script type="text/javascript">
+
+//var nodeName='Gas';
+var nodeId=6;
+var html='gas.html';
+//var myrefresh=null;
+
+function initDashboard( parm )
+{
+	if(parm)
+	{
+		nodeId = parm;
+		//nodeName = nodeId2Name(nodeId);
+	}
+	//alert("initDashboard node="+nodeName);
+	refreshError = false;
+	showDetails2();	
+}
+ 
+
+
+//function refresh(delay)
+//{
+//	if(delay==null)delay=400;
+//	myrefresh = setTimeout(function(){showDetails2();clearTimeout(myrefresh);}, delay);
+//}
+
+//function setParm(id, delta)				{setParm2(nodeId, id, delta);		doDelay();}
+//function sendParm(id, newValue, delay)	{sendParm2(nodeId, id, newValue);	doDelay(delay);}
+
+
+function showDetails2()
+{
+	//logg(1,"showDetails2");
+	showNode(nodeId, true ); // clear error
+	showNodeLog(nodeId,"2"); // day's in the past
+	mvcSet2( 'logDel', false  );
+	mvcSet2( 'hang', false  );
+	//$('a#detailName').text( nodeName );
+}
+
+</script>
+
+
+<ul class="menu001" style="background:#008078;">
+	<li onclick="loadDetails();"><a id="caption">Caption</a></li>
+	<li onclick="loadSensors();"><a>Sensors</a> </li>
+</ul>
+
+
+<section id="gasSection"   >
+
+<table class="options" >
+<thead>
+	<colgroup>
+		<col width="50%"/><col width="50%"/>
+	</colgroup>
+</thead>
+<tbody>
+ 
+<div id="mvcError" class="homeloo"></div>
+
+<div>
+<button type="button" class="knop red" onclick="sendCmd(nodeId, 'rfshDelta');" title="Refresh">Rfsh</button>
+<br/>Latest: <span id="last" ></span>   up: <span id="up" >
+</div>
+
+	<tr><td colspan="2">Vin: <span id="s12" ></span> &nbsp;V 
+	</span></td></tr>
+ 
+	<!-- tr><td colspan="2">Total: <span id="total" ></span>&nbsp; m3</td></tr -->
+	
+	<tr title="Stel total">
+		<td> 	
+			<input id="total" type="number" /> 
+		</td>
+		<td><button type="button" onclick="setParm2(nodeId, 'total', 0);doDelay(1000);">Set total</button> </td>
+	</tr>
+	
+	<tr><td colspan="2">Delta: <span id="delta" ></span>&nbsp; ticks (0.01 m3)  </td></tr>
+ 
+
+	<tr><td colspan="2">Prnt snd:&nbsp;<span id="s84"  title="s84"></span>/<span id="s85" title="s85"></span>/<span id="s86" title="s86"></span>
+	                    &nbsp;rd:&nbsp;<span id="s81" title="s81" ></span>/<span id="s82" title="s82"></span>/<span id="s83" title="s83"></span></td></tr> 	
+  	
+	
+ 	<tr title="Stel sample tijd in (sec)">
+		<td>Sample periode</td>
+		<td><div class="veld">	
+			<div class="veld_left"><span onclick="setParm2(nodeId,'s02',-10);doDelay();">-</span></div> 
+			<div><input id="s02" type="number" size="3" min="0" max="99"  
+			       		onfocusout="setParm2(nodeId,'s02');doDelay();" currentvalue="" /></div>
+			<div class="veld_right"><span onclick="setParm2(nodeId,'s02',10);doDelay();">+</span></div>
+			</div></td>
+	</tr>
+ 
+	
+	<tr>	<td>  ResetBootCount </td> 
+		<td   >
+		<label class="switch">
+	      <input class="switch-input" type="checkbox" id="rstBcount" onclick="setParm2(nodeId,'rstBcount');doDelay();"/>
+	      <span class="switch-label" data-on="AAN" data-off="UIT"></span>
+	      <span class="switch-handle"></span>
+	    </label></td></tr>	
+	    
+	    
+ <tr>	<td>Hang</td> 
+		<td   >
+		<label class="switch">
+	      <input class="switch-input" type="checkbox" id="hang" onclick="setParm2(nodeId,'hang');doDelay(3000);"/>
+	      <span class="switch-label" data-on="AAN" data-off="UIT"></span>
+	      <span class="switch-handle"></span>
+	    </label></td></tr>
+	    
+
+<tr><td>Clear log</td>
+		<td  >
+		<label class="switch">
+	      <input class="switch-input" type="checkbox" id="logDel" onclick=" setParm2(nodeId,'logDel');doDelay(700);"/>
+	      <span class="switch-label" data-on="AAN" data-off="UIT"></span>
+	      <span class="switch-handle"></span>
+	    </label></td>
+</tr>	
+
+
+ 
+	
+</tbody>
+</table>
+ 
+ 
+
+<table  border="1" id="ardLog">
+<thead>
+	<colgroup>
+		<col align="center"/><col align="left"/><col align="left"/>
+	</colgroup>
+</thead>
+<tbody></tbody>
+</table>
+
+</section>
+	
+

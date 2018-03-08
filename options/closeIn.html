@@ -1,0 +1,164 @@
+<script type="text/javascript">
+
+
+var nodeName='CloseIn';
+var nodeId=8;
+var html='closeIn.html'; 
+
+function initDashboard( parm )
+{
+	if(parm)
+	{
+		nodeId = parm;
+		nodeName = nodeId2Name(nodeId);
+	}
+	//alert("initDashboard node="+nodeName);
+	refreshError = false;
+	showDetails2();	
+}
+ 
+var myrefresh=null;
+
+function refresh(delay)
+{
+	if(delay==null)delay=700;
+	myrefresh = setTimeout(function(){showDetails2();clearTimeout(myrefresh);}, delay);
+}
+
+function setParm(id, delta)				{setParm2(nodeId, id, delta);		refresh();}
+function sendParm(id, newValue, delay)	{sendParm2(nodeId, id, newValue);	refresh(delay);}
+
+ 
+function showDetails2()
+{
+	showNode(nodeId, true ); // clear error
+	showNodeLog(nodeId,"2"); // day's in the past
+	mvcSet2( 'logDel', false  );
+	mvcSet2( 'hang', false  );
+	//$('a#detailName').text( nodeName );
+}
+</script>
+
+
+<ul class="menu001" style="background:#008078;">
+	<li onclick="loadDetails();"><a id="caption">Caption</a></li>
+	<li onclick="loadSensors();"><a>Sensors</a> </li>
+</ul>
+	
+<section id="closeInSection"  >
+ 
+  
+
+<table class="options">
+    <thead>
+    <colgroup>
+      <col width="50%"><col width="50%">
+    </colgroup>
+    </thead>
+<tbody> 
+
+ <div>
+<button type="button" class="knop red" onclick="refresh();" title="Refresh">Rfsh</button>
+</div>
+
+	<div id="mvcError" class="homeloo"></div>
+	<tr><td colspan="2">
+		<div class="veld"  >
+		power: <span id="s55" ></span>, &nbsp;
+		temp: <span id="s11" ></span> C,&nbsp;
+		ssr: <span id="s54" ></span> C	
+		<br/>Latest: <span id="last" ></span>   up: <span id="up" >
+		</div>	
+		</td>
+    </tr>
+		<br/>	
+		
+ 
+
+	<tr><td colspan="2">Netw snd:&nbsp;<span id="s84" ></span>/<span id="s85"></span>/<span id="s86"></span>
+	                    &nbsp;rd:&nbsp;<span id="s81" ></span>/<span id="s82"></span>/<span id="s83"></span></td></tr> 	
+
+	<tr><td>Test</td>
+		<td  >
+		<label class="switch">
+	      <input class="switch-input" type="checkbox" id="chkTest" onclick="setParm('chkTest');"/>  
+	      <span class="switch-label" data-on="AAN" data-off="UIT"></span>
+	      <span class="switch-handle"></span>
+	    </label></td>
+     </tr>	 
+		
+				 
+
+	<tr title="Stel sample tijd in (sec)">
+		<td>Sample periode</td>
+		<td><div class="veld">	
+			<div class="veld_left"><span onclick="setParm('s02',-10);">-</span></div>
+			<div><input id="s02" type="number" size="3" min="0" max="99"  
+			       		onfocusout="setParm('s02');" currentvalue="" /></div>
+			<div class="veld_right"><span onclick="setParm('s02',10);">+</span></div>
+			</div></td>
+	</tr>
+	
+<tr title="Max boiler temperatuur (&deg;c)"><td>Max boiler temp.</td>
+	<td><div class="veld">	
+		<div class="veld_left">
+			 <span onclick="setParm('s52',-1);">-</span></div>
+		<div><input id="s52" type="number" size="3" min="0" max="99"  
+		       		onfocusout="setParm('s52');" currentvalue="" /></div>
+		<div class="veld_right"><span onclick="setParm('s52',1);">+</span></div>
+	</div></td></tr>
+
+	
+<tr title="Max ssr temperatuur (&deg;c)"><td>Max SSR temp</td>
+	<td><div class="veld">	
+		<div class="veld_left"><span onclick="setParm( 's53', -1 );">-</span></div>
+		<div><input id="s53" type="number" size="3" min="0" max="99"
+		       		onfocusout="setParm('s53');" currentvalue="" /></div>
+		       		<!-- step="1"  pattern="[0-9]+([\.|,][0-9]+)?" -->
+		<div class="veld_right"><span onclick="setParm( 's53', 1 );">+</span></div>
+	</div></td></tr>
+
+ 	<tr>	<td>  ResetBootCount </td> 
+		<td   >
+		<label class="switch">
+	      <input class="switch-input" type="checkbox" id="rstBcount" onclick="sendParm('rstBcount',null,300);"/>
+	      <span class="switch-label" data-on="AAN" data-off="UIT"></span>
+	      <span class="switch-handle"></span>
+	    </label></td></tr>	
+	    		
+ 
+
+	<tr>	<td>  Hang </td> 
+		<td   >
+		<label class="switch">
+	      <input class="switch-input" type="checkbox" id="hang" onclick="sendParm('hang',null,2500);"/>
+	      <span class="switch-label" data-on="AAN" data-off="UIT"></span>
+	      <span class="switch-handle"></span>
+	    </label></td></tr>
+	    
+	    
+<tr><td>Clear log</td>
+		<td  >
+		<label class="switch">
+	      <input class="switch-input" type="checkbox" id="logDel" onclick="sendParm( 'logDel');"/>
+	      <span class="switch-label" data-on="AAN" data-off="UIT"></span>
+	      <span class="switch-handle"></span>
+	    </label></td>
+
+ 
+	    
+</tbody>
+</table>
+
+<table  border="1" id="ardLog">
+<thead>
+	<colgroup>
+		<col align="center"/><col align="left"/><col align="left"/>
+	</colgroup>
+</thead>
+<tbody></tbody>
+</table>
+
+</section>
+	
+
