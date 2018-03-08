@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+  
+<html lang="en">
+<meta charset="UTF-8">
+<!--meta http-equiv="Cache-control" content="Public"-->
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<meta name="COPYRIGHT" content="&copy; 2014 J&L Computing">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+<meta name="format-detection" content="telephone=no"> <!-- prevent browser to look for phone numbers -->
+ <!-- http://stackoverflow.com/questions/19845950/angularjs-how-to-dynamically-add-html-and-bind-to-controller -->
+<head>
+
+<script type="text/javascript">
+	 			
+</script>
+
+	<title>Home</title>
+	
+	<link rel="shortcut icon" 	href="images/favicon.ico" 		type="image/x-icon" /> 
+	
+    <link rel="stylesheet" 		href="styles/domo.css" 		type="text/css" media="screen" />
+    <!--link rel="stylesheet"      href="scripts/jquery/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" 		href="styles/simple-switch.css" type="text/css" media="screen" /> -->
+    <link rel="stylesheet" 		href="styles/switch.css" 		type="text/css" media="screen" />
+
+	<script type="text/javascript"  src="context.js"></script>
+
+	<script type="text/javascript"  src="scripts/jquery/jquery-2.2.3.min.js"></script>
+    <!-- script type="text/javascript"  src="scripts/jquery/jquery.mobile-1.4.5.min.js"></script -->
+	
+
+
+	<script type="text/javascript"  src="scripts/ui.js"></script>
+	<script type="text/javascript"  src="scripts/mvc.js"></script>
+	<script type="text/javascript"  src="scripts/data.js"></script>
+	<script type="text/javascript"  src="scripts/utils.js"></script>
+	<script type="text/javascript"  src="scripts/grafiek.js"></script>
+	
+	<script type="text/javascript"  src="Pomp.js"></script>
+	
+<!--jquery-3.1.1.min.js  jquery-2.2.3.min.js
+
+
+
+	<script type="text/javascript"  src="scripts/jquery/jquery-3.1.1.min.js"></script> // not jet compatible with mobile
+
+	<script type="text/javascript"  src="scripts/jquery/jquery-1.11.1.js"></script>	
+	<script type="text/javascript"  src="scripts/jquery/jquery.mobile-1.4.5.js"></script>
+
+	<script type="text/javascript"  src="scripts/angular/angular.min.js"></script>
+
+	<script type="text/javascript"  src="scripts/homeloo.js"></script>
+	<script type="text/javascript"  src="../scripts/jquery.ui.core.js"></script>
+	<script type="text/javascript"  src="../scripts/jquery.ui.position.js"></script>
+	<script type="text/javascript"  src="../scripts/jquery.ui.widget.js"></script>
+	<script type="text/javascript"  src="../scripts/jquery.ui.menu.js"></script>
+
+    <script type="text/javascript"  src="../scripts/RGraph/thermometer.js" ></script>
+
+	<link href="default.css" rel="stylesheet" type="text/css">
+	<link href="tablet.css" rel="stylesheet" type="text/css" media="only screen and (min-width:400px) and (max-width:770px)">
+	<link href="phone.css" rel="stylesheet" type="text/css" media="only screen and (min-width:0px) and (max-width:399px)">
+	<link rel="stylesheet" media="print" href="print.css" />
+-->
+
+<script type="text/javascript">
+var myrefresh;
+
+function refresh(delay)
+{
+	if(delay==null)delay=100;
+	myrefresh = setTimeout(function(){refreshData();clearTimeout(myrefresh);}, delay);
+}
+
+	
+window.onerror = function(message, url, linenumber) 
+{	
+	// here we only show the first error
+	if ( showWindowAlert )
+	{
+		alert('JavaScript err: ' + message + ' on line ' + linenumber + ' for ' + url);
+		showWindowAlert = false;
+	}
+}
+ 
+</script>
+		
+</head>
+
+<body onclick="hideMenu();">
+
+<div class="homeloo">
+
+<header class="computer banner" ><!-- computerTablet width="100%"  -->
+	<table ><tr>
+
+		<td class="left"><img src="images/lucky.gif" title="A lonesome cowboy, far away from home" ></td>
+
+		<td>
+			<!--small>Media=
+			<span class="computer">C</span><span class="tablet">T</span><span class="phone">P</span><span class="portrait">-P</span><span class="landscape">-L</span>
+			span class="computerTablet">C&T</span><span class="tabletPhone">T&P</span>
+			
+			</small-->
+			<h3 title="Vloerpomp, CV Ketel, Zonnepanelen, Gas meter en Dimmer">Lucky Luck Domotics</h3>
+		</td>
+
+		<td class="right"><img src="images/lucky.gif"  title="A lonesome cowboy, far away from home"></td>
+
+	</tr></table> 
+</header>
+
+   
+
+<nav>
+	<ul id="mainmenu" class="mainmenu">
+		<li><a href="javascript:refreshPage();"  >Home</a></li>
+		<!-- li><a href="javascript:doNothing();" onclick="loadDashboard('ketel.htm',event);">ketel</a></li -->
+		<li><a href="javascript:doNothing();">Svc</a>
+	        <ul>			 
+				<li><a href="javascript:doNothing();" onclick="loadDashboard('options/kernel.html',event,2);">Kernel</a></li>
+				<li><a href="javascript:doNothing();" onclick="loadDashboard('options/conn.html',event,1);">Conn</a></li>
+				<li><a href="javascript:doNothing();" onclick="loadDashboard('options/schedules.html',event,1);">Schedules</a></li>
+	        </ul>
+	    </li>
+		<li><a href="javascript:doNothing();">Sensors</a>
+	        <ul>			 
+				<li><a href="javascript:doNothing();" onclick="loadDashboard('options/pomp.html',event);">Pomp 3</a></li>
+				<li><a href="javascript:doNothing();" onclick="loadDashboard('options/dimmer.html',event );">Dimmer 4</a></li>
+				<li><a href="javascript:doNothing();" onclick="loadDashboard('options/ketel.html',event);">Ketel 5</a></li>
+				<li><a href="javascript:doNothing();" onclick="loadDashboard('options/gas.html',event);">Gas 6</a></li>
+				<li><a href="javascript:doNothing();" onclick="loadDashboard('options/closeIn.html',event);">CloseIn 8</a></li>
+				<li><a href="javascript:doNothing();" onclick="loadDashboard('options/hub.html',event,10);">TCP</a></li>
+				<li><a href="javascript:doNothing();" onclick="loadDashboard('options/hub.html',event,11);">Serial1</a></li>
+				<li><a href="javascript:doNothing();" onclick="loadDashboard('options/hub.html',event,12);">Serial2</a></li>
+				<li><a href="javascript:doNothing();" onclick="loadDashboard('options/hub.html',event,18);">Hub</a></li>
+				<li><a href="javascript:doNothing();" onclick="loadDashboard('options/ttn.html',event);">TTN</a></li>
+				<li><a href="javascript:doNothing();" onclick="loadDashboard('options/chint.html',event);">Chint 14</a></li>
+				<li><a href="javascript:doNothing();" onclick="loadDashboard('options/water.html',event);">Water 20</a></li>
+				<li><a href="javascript:doNothing();" onclick="loadDashboard('options/verwarm.html',event);">Verw 21</a></li>
+				<li><a href="javascript:doNothing();" onclick="loadDashboard('options/fan.html',event);">Fan 22</a></li>
+				<li><a href="javascript:doNothing();" onclick="loadDashboard('options/esp.html',event);">Esp 30</a></li>
+	        </ul>
+	    </li>
+			<li><a href="javascript:doNothing();" onclick="loadDashboard('Logging.html',event);">Log</a>
+	        <!-- ul>
+				<li><a href="javascript:doNothing();" onclick="loadDashboard('PompGrafiek.html',event);">Grafiek</a></li>
+				<li><a href="javascript:doNothing();" onclick="loadDashboard('PompGrafiek.html',event);">Grafiek</a></li>
+	        </ul -->
+	    </li>
+	    <li><a href="javascript:doNothing();" onclick="loadDashboard('Grafiek.html',event);">Graph</a>
+ 
+	     </li>
+	     <li><a href="javascript:doNothing();">
+	     <span class="computer">C</span><span class="tablet">T</span><span class="phone">P</span><span class="portrait">-P</span><span class="landscape">-L</span>&nbsp;<span id="dbVer"/>
+	     </a>
+	        <ul>
+	            <li><a href="javascript:window.open('phpinfo.php?cmd=1','_self');;">General</a></li>
+	            <li><a href="javascript:window.open('phpinfo.php?cmd=4','_self');;">Config</a></li>
+	            <li><a href="javascript:window.open('phpinfo.php?cmd=8','_self');;">Modules</a></li>
+	            <li><a href="javascript:window.open('phpinfo.php?cmd=16','_self');;">Environment</a></li>
+	            <li><a href="javascript:window.open('phpinfo.php?cmd=32','_self');;">Variables</a></li>
+	            <li><a href="javascript:window.open('phpinfo.php?cmd=all','_self');;">All</a></li>
+	         </ul>	     
+	     
+	     </li>
+	</ul>
+</nav>
+
+  
+<div  id="dashboard"    >
+<script type="text/javascript">
+
+/*
+var app = angular.module('myApp', []);
+
+app.controller('myCtrl', function($scope) 
+{
+    $scope.name = "Luc";
+    $scope.carname = "LuckyLuck";
+    $scope.lastName = "Looman";
+});
+
+app.controller('myCtrl2', function($scope, $http) {
+    $http.get("welcome.htm")
+    .then(function(response) {
+        $scope.myWelcome = response.data;
+    });
+});
+
+app.controller('mainMvcCtrl', function($scope, $http) {
+    $http.get("customers.php").then(function(response) {
+        $scope.mainMvc = response.data.records;
+    });
+});
+*/
+</script>
+<section id="iotHome"   >
+
+<!-- 
+  <div data-ng-app="" data-ng-init="firstName='ValidHtml'">
+
+<p>The name is <span data-ng-bind="firstName"></span></p>
+
+</div> 
+
+<div ng-app="" ng-init="firstName='Lucky Luck'">
+
+<p>The name is <span ng-bind="firstName"></span> </p> 
+
+</div>
+ 
+<div ng-app="myApp" ng-controller="myCtrl">
+
+ {{name}}&nbsp;{{lastName}}  
+
+</div>
+--><!-- &nbsp;{{ 5 + 5 }} -->
+<!-- div ng-app="">
+ 
+<p>Input something in the input box:</p>
+	<p>Name: <input type="text" ng-model="name"></p>
+<p>{{name}}</p>
+
+</div>
+ <div ng-app="" ng-init="firstName='John';lastName='Doe'">
+
+<p>The name is <span ng-bind="firstName + ' ' + lastName"></span></p>
+
+</div --> 
+
+<!-- class="phone"  -->
+<div class="phone" >
+<table class="iconmenu">
+	<tbody> 
+	 		 
+		<tr><td onclick="loadDashboard('options/pomp.html',event, 3);"><img src="images/smile3.gif" alt="Smile"  /> </td>
+			<td onclick="loadDashboard('options/ketel.html',event, 5);"><img src="images/smile.gif" alt="Smile"  /> </td>
+			<td onclick="loadDashboard('Logging.html',event);"><img src="images/smile2.gif" alt="Smile" /> </td>
+			<td onclick="loadDashboard('Grafiek.html',event);"><img src="images/graph005.gif" alt="Graph"  /> </td>
+		</tr>
+	
+	</tbody>
+</table>
+
+</div>
+
+	<span id="mvcError" class="homeloo"></span>
+	
+<!-- <button type="button"   onclick="testMvc( );" >testMvc</button> -->	
+   
+<script type="text/javascript">   
+   function sendParm(id, newValue){
+	
+	var cmd ='??';
+	var parms = '';
+	if (id == 'chkThermostaat') 	{ cmd ='ketel'; parms = 'thermostaatAan&' + newValue; }
+	
+	if ( parms == '' ) return;  // no id found
+
+	var info = doJson2( cmd, parms );
+	
+	
+	mvcSet2(id, newValue );
+	
+	}
+ 
+   
+   function Decoder(bytes, port)
+   {
+	   var left =  [];
+	   var right = [];
+	   	 	   
+	   for (var i = 7; i >= 0; i--)
+	   {
+		    var leftbit =  ((  bytes[0] << i ) & 0x80 ) ? 1 : 0 ;
+		    // do something with the bit (push to an array if you want a sequence)
+		    left[i] = leftbit;
+	   }
+	   
+	   for (var j = 7; j >= 0; j--)
+	   {
+		    var rightbit = bytes[1] & (1 << j) ? 1 : 0;
+		    // do something with the bit (push to an array if you want a sequence)
+		    right[j] = rightbit;
+	 	}
+	   
+	   console.log('left='+left);
+	   console.log('right='+right);
+	   
+	  // return
+	  // {
+	  //   left: left,
+	   //  right: right,
+	   //};
+	 }
+
+
+   function testtest()
+   {  
+	   var bytes = [];
+	   bytes[0] = 0x55;
+	   bytes[1] = 0x33;
+	   
+	   
+	   Decoder(bytes, 8	);
+   }
+/*   
+   function testtest2()
+   {
+	var left = [];
+   	var een = 0x5533;
+
+   	var j =0;
+   	for(i = 7; i>=0 ; i--)
+   	{
+   		een = een << 1;
+   		twee = een & 0x80;
+   		console.log(  '<<'+i+' '+een.toString(2)  +' = ' + (twee > 0 ? "1":"0" ) );
+   		left[j++] =  (twee > 0 ? 1:0 );
+		
+   	}
+   	
+ 	console.log(  'left= '+ left );
+ 	
+  // 	console.log(  '<<1 '+ ( een << 1) + ' ' + ( een << 1).toString(2));
+  // 	console.log(  '<<2 '+ ( een << 2) + ' ' + ( een << 2).toString(2));
+  // 	console.log(  '<<3 '+ ( een << 3) + ' ' + ( een << 3).toString(2));
+   }
+   
+   */
+</script>	
+	
+
+
+	    	 	
+<div class="verticalMiddleHeight">
+<span class="indicators" >&nbsp;
+<span id="n1"  onclick="loadDashboard('options/conn.html',   event,1);"></span>&nbsp;
+<span id="n2"  onclick="loadDashboard('options/kernel.html', event,2);"></span>&nbsp;
+<span id="n3"  onclick="loadDashboard('options/pomp.html',   event,3);"></span>&nbsp;
+<span id="n4"  onclick="loadDashboard('options/dimmer.html', event,4);"></span>&nbsp;
+<span id="n5"  onclick="loadDashboard('options/ketel.html',  event,5);"></span>&nbsp;
+<span id="n6"  onclick="loadDashboard('options/gas.html',    event,6);"></span>&nbsp;
+<span id="n8"  onclick="loadDashboard('options/closeIn.html',event,8);"></span>&nbsp;
+<span id="n10" onclick="loadDashboard('options/hub.html',    event,10);"></span>&nbsp;
+<span id="n11" onclick="loadDashboard('options/hub.html',    event,11);"></span>&nbsp;
+<span id="n12" onclick="loadDashboard('options/hub.html',    event,12);"></span>&nbsp;
+<span id="n14" onclick="loadDashboard('options/chint.html',  event,14);"></span>&nbsp;
+<span id="n18" onclick="loadDashboard('options/hub.html',    event,18);"></span>&nbsp;
+<span id="n20" onclick="loadDashboard('options/water.html',  event,20);"></span>&nbsp;
+<span id="n21" onclick="loadDashboard('options/verwarm.html',event,21);"></span>&nbsp;
+<span id="n22" onclick="loadDashboard('options/fan.html'    ,event,22);"></span>&nbsp;
+<span id="n30" onclick="loadDashboard('options/esp.html'    ,event,30);"></span>&nbsp;
+</span>
+&nbsp;
+<button type="button" class="knop green" onclick="sendParm2('linux', 'logFrom',0);refresh();" title="Logging off">Off</button>
+<input id="logFrom" type="number" size="3" min="0" max="99" onfocusout="setParm2('linux', 'logFrom');refresh();"    currentvalue="" />
+<button type="button" class="knop red" onclick="sendParm2('linux', 'logFrom',99);refresh();" title="Log all">All</button>
+
+<!--  button type="button" class="knop red" onclick="testtest();" title="Log all">Test</button-->
+
+
+<br/>
+
+Dim&nbsp;<input id="s452" type="range" min="0" max="100" value="0" step="5"  oninput="setParm2('dimmer','s452');refresh(500);"/>
+
+<br/>
+ 
+Thuis&nbsp;
+	<label class="switch">
+	  <input class="switch-input" type="checkbox" id="vwThuis"  onclick="setParm2('ketel','vwThuis');refresh(1000);" />
+	  <span  class="switch-label" data-on="AAN" data-off="UIT"></span>
+	  <span  class="switch-handle"> </span>
+	</label>   
+Weg&nbsp;
+	<label class="switch">
+	  <input class="switch-input" type="checkbox" id="vwVak"  onclick="setParm2('ketel','vwVak');refresh(1000);" />
+	  <span  class="switch-label" data-on="AAN" data-off="UIT"></span>
+	  <span  class="switch-handle"> </span>
+	</label>  
+	
+
+<!-- div  class="verticalMiddleHeight" > <span>
+
+ <img style="height: 25px; width: 25px;" src="images/restart.jpg" alt="halt"  onclick="alert('halt');"/> 
+ <img style="height: 25px; width: 25px;" src="images/bezem.png" alt="halt"  onclick="alert('halt');"/> 
+ <img style="height: 25px; width: 25px;" src="images/restart2.png" alt="halt"  onclick="alert('halt');"/> 
+ <img style="height: 25px; width: 25px;" src="images/restart.jpg" alt="test" title="test"  onclick="sendParm2('linux', 'test',0);refresh();"/>  
+</span> </div -->
+ 
+ 
+
+		<!-- </div>
+ <div>
+	<fieldset><legend>Dimmer</legend>	
+		    onchange="setParm2('dimmer','s452');refresh(500);"   
+	</fieldset>
+		thuis: <span id="vwThuis" type="boolean" true="aan" false="uit"></span>&nbsp;
+		vak: <span id="vwVak" type="boolean" true="aan" false="uit"></span>&nbsp;		
+		 -->	
+</div>
+
+<br/>				   
+	<div class="computerTablet" onclick="refreshData();">
+			
+		Pomp: <span id="s313" type="boolean" true="aan" false="uit"></span>,&nbsp;
+		aanvoer: <span id="s320" ></span> C,&nbsp; 
+		retour: <span id="s311" ></span> C,&nbsp;
+		kamer: <span id="s1112" ></span> C,&nbsp;
+		kruipruimte: <span id="s312" ></span> C <br/>
+		
+		Cv <span id="vwAan" ></span>-<span id="vwUit" ></span>&nbsp;temp:     <span id="s541" ></span> C, &nbsp;
+		extra: <span id="s552" type="boolean" true="aan" false="uit" ></span>,&nbsp;
+		boiler: <span id="s547"></span> C,&nbsp;
+		buiten: <span id="s543"></span> C,&nbsp;
+		<br/>
+		
+		CloseIn: 
+		water: <span id="s811" ></span> C,&nbsp;
+		ssr: <span id="s854" ></span> C,&nbsp;
+		Verw: 
+		temp: <span id="s2121" ></span> C,&nbsp;
+		vocht: <span id="s2122" ></span>  		
+		<br/>	
+ 				
+		Zon: <span id="s1457" ></span> Watt,&nbsp;
+		temp: <span id="s1456" ></span> C,&nbsp;
+		vandaag: <span id="s1455" ></span> Kwh,&nbsp;
+		totaal: <span id="s1454" ></span> Kwh<br/>
+	</div>	
+	
+	<div class="phone opvallen" onclick="refreshData();">
+		 	 
+	 
+		Pomp: <span id="s313" type="boolean" true="aan" false="uit" ></span>, &nbsp;   Aanvoer: <span id="s320"  ></span> C, <br/>
+		Retour: <span id="s311"></span> C,&nbsp; kamer: <span id="s1112" ></span> C<br/>
+		<br/>
+		
+		Boiler: <span id="s547" ></span> C, &nbsp; Cv: <span id="s541" ></span> C<br/>
+		Buiten: <span id="s543" ></span> C, &nbsp; extra: <span id="s552" type="boolean" true="aan" false="uit" ></span> <br/>
+		
+		<!-- Afvoer: <span id="tempAfvoer" ></span> C -->
+		</br>
+ 
+		<!-- 
+		Gas: <span id="gasVerbruik" ></span> m3<br/>
+		Sinds: <span id="gasVerbSinds" ></span> <br/>
+		<br/>
+		 -->
+		 
+		CloseIn: <span id="s811" ></span> C&nbsp;
+		SSR: <span id="s854" ></span> C,&nbsp; 
+		</br>
+		Verw: <span id="s2121" ></span> C,&nbsp;
+		  <span id="s2122" ></span> %
+		 
+		</br>
+		</br>
+		
+		Power: <span id="s1457" ></span> Watt, &nbsp; 
+		Temp: <span id="s1456" ></span> C<br/>
+		Today: <span id="s1455" ></span> Kwh, &nbsp;
+		Total: <span id="s1454" ></span> Kwh<br/>
+		
+	</div>	
+ 
+	  
+<!-- time 	 
+
+<aside class="computerTablet">
+	<span>
+		<input type="checkbox" id="logging"  onclick=" logging = $('#logging').is(':checked'); "  >log
+		<input type="checkbox" id="logAlert"  onclick=" logAlert = $('#logging').is(':checked'); "  >alert
+ 
+		<!-- ?php echo ' ' . date('Y-m-d H:i:s') ; ? -->
+<!--	</span>
+</aside> 
+ style="display:none;"
+ style="display: block;visibility: visible;"
+     x.style.display = "block";
+    } else {
+        x.style.display = "none";
+	--> 
+
+
+
+
+ <table id="graphTable" style="width:99%">
+  <tr>
+    <td id="graphSettings" style="display: none;visibility: hidden;width: 100px;" >
+        <div>&nbsp;<br/></div>
+        <div><input type="text" id="groupName"  value="" placeholder="Name" style="width: 100px;"  /></div>  
+    </td>
+    
+    <td>
+		 <figure class="computerTablet"><!-- computerTablet -->
+			<span id="graphPlans">
+				<button type="button"   onclick="cmdVandaag(-1);" >&lt;</button>
+				<button type="button"   onclick="cmdVandaag();" >Vandaag</button>
+				<button type="button"   onclick="cmdVandaag(+1);" >&gt;</button>
+				<span id="graphCaption" ></span>
+				
+				<button type="button"   onclick="toggleVisibility('graphSettings');" >+</button>
+				<button onclick="savePlan();">Save</button>
+				 <!-- div class="popup"  >
+				 	< span class="popuptext" id="myPopup">
+						 <input type="text" id="planName"  value="" placeholder="Name" style="width: 100px;"  />
+						 <button onclick="savePlan();">Save</button>
+				 	</span>
+				 </div > 
+				 
+				 <button onclick="myPopUpFunc(event);">Save</button-->
+				
+			</span>  	
+			<figcaption>.</figcaption>
+			<canvas  id="tempGraph" width="500" height="400" style="border: 1px solid gray; background-color:#ffffff;">[No canvas support]</canvas>
+		</figure>      
+     </td>
+ 
+  </tr>
+ 
+</table> 
+
+
+<script type="text/javascript">
+
+//When the user clicks on <div>, open the popup
+function myPopUpFunc(ev) 
+{
+	
+	//$('.popup').css
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+}
+
+function savePlan()
+{ 
+	//alert('savePlan ');
+ 
+	var ids = "" ;
+ 
+	$( "#graphSettings" ).find('input').each(function( ) 
+	{
+		  var chkId = $( this ).attr('id');
+		  
+		  if(chkId.startsWith('chk')) 
+		  {
+			  //setCheckCookie(chkId); 
+		  
+			  if( $('#'+chkId).is(':checked') )
+			  {
+				  if(ids.length > 1) ids += "_";
+				  ids += chkId.substring(3);
+			  }			   
+		  }
+	});
+ 
+	var planName = $('#groupName').val(); 
+	
+	
+	doJsonCmd("savePlans",planName+"&"+ids);
+	//alert('savePlan '+planName+': ids'+ids);	
+}
+
+function saveSettings()
+{ 
+	//myPopUpFunc() ;
+	var ids = "" ;
+ 
+	$( "#graphSettings" ).find('input').each(function( ) 
+	{
+		  var chkId = $( this ).attr('id');
+		  
+		  if(chkId.startsWith('chk')) 
+		  {
+			  setCheckCookie(chkId); 		  		   
+		  }
+	});
+	
+	cmdRefreshGrafiek();
+		 
+}
+
+
+function cmdVandaag( dagen )
+{
+	//log( "Pomp.js>cmdVandaag: dagen="+ dagen  );
+	setStartDate( dagen );
+	log( "Pomp.js>cmdVandaag: dagen="+ dagen +" startDatum="+ startDate);
+	
+	cmdRefreshGrafiek( dagen == null );	
+}
+
+
+/*
+function toggleSettings()
+{ 
+	if ($('#graphSettings').css('visibility') == 'visible')
+	{		 
+		$('#graphSettings').css("visibility", "hidden");
+		$('#graphSettings').css("display", "none");
+	//	$("#graphSettings").empty();
+		
+	}
+	else
+	{		 
+		$('#graphSettings').css("display", "block");
+		$('#graphSettings').css("visibility", "visible");
+	//	$('#graphSettings').append('<div><label><input type="checkbox" id="chkS2112" />CV</label></div>');
+	
+	//	$('#graphSettings:last-child').append('-----------------');
+
+	//	$('#ardLog > tbody:last-child').append('<tr><td colspan="3" align="center">'+DD+' dagen geleden</td></tr>');
+ 
+
+
+	}
+		
+		$('#graphTable').hide().show(0); 
+}
+ */
+function listIoTNodes(  )
+{ 
+   	doJson3( 'listIoTNodes', '', function ( info )
+	{
+ 				//alert("showLog"+info); 
+			
+		if( info.retCode < 0)
+		{		 
+			alert("showLog error "+info.message); 
+			return;
+
+		}	
+
+		var prevDD=0;
+		$("#iotNodes > tbody").empty();
+				
+		$.each( info.log, function(idx, logLine)
+		{
+			var tr = '<tr><td>'+logLine.at+'</td><td>'+logLine.o+'</td><td>'+logLine.v+'</td></tr>';
+
+			var DD  = logLine.dd;
+			if(prevDD != DD)
+			{
+				if(DD == 1)
+				{
+					$('#iotNodes > tbody:last-child').append('<tr><td colspan="3" align="center">Gisteren</td></tr>');
+				}
+				else
+				{
+					$('#iotNodes > tbody:last-child').append('<tr><td colspan="3" align="center">'+DD+' dagen geleden</td></tr>');
+				}
+			}
+	
+			$('#ardLog > tbody:last-child').append(tr);
+			
+		   	prevDD = DD;
+			
+		   	/*  				 */	 
+		}); 		
+   
+	});   
+}
+
+/*
+var app = angular.module('myApp', []);
+
+app.controller('myCtrl', function($scope) 
+{
+    $scope.name = "Luc";
+    $scope.carname = "LuckyLuck";
+    $scope.lastName = "Looman";
+});
+
+app.controller('myCtrl2', function($scope, $http) {
+    $http.get("welcome.htm")
+    .then(function(response) {
+        $scope.myWelcome = response.data;
+    });
+});
+
+app.controller('mainMvcCtrl', function($scope, $http) {
+    $http.get("customers.php").then(function(response) {
+        $scope.mainMvc = response.data.records;
+    });
+});
+*/
+</script>
+
+<table  border="0" id="iotNodes">
+<thead>
+	<colgroup>
+		<col align="center"/><col align="left"/><col align="left"/>
+	</colgroup>
+</thead>
+<tbody></tbody>
+
+
+</table>
+
+
+</section>
+</div>
+  
+
+</div>
+
+<footer>&nbsp;&#169; J&amp;L Computing </footer>
+
+</body>
+
+
+</html>

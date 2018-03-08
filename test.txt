@@ -1,0 +1,15 @@
+asdfdsf
+
+git init
+
+git add .
+
+git commit -am "initial load"
+
+git remote add origin https://github.com/llooman/www.git
+
+git remote set-url origin https://github.com/llooman/www.git
+
+git push -u origin master
+
+git status

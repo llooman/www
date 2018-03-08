@@ -1,0 +1,40 @@
+
+
+<script type="text/javascript">
+
+function initDashboard(){
+	
+ 
+
+	myGrafiek = new Grafiek( "tempGraph", initMyGrafiek, drawMyGrafiek, true );
+	
+}
+</script>
+
+<section id="pompGrafiek"     >
+<div id="error" class="homeloo"></div>
+
+<figure>
+		<figcaption>grafiek</figcaption>
+		<canvas id="tempGraph" width="500" height="325" style="border: 1px solid gray; background-color:#ffffff;">[No canvas support]</canvas>
+</figure>
+
+
+<span>
+	<input type="checkbox" id="chkPompAan"  onclick="setCheckCookie('chkPompAan');cmdRefreshGrafiek();	" >Pomp 
+	<input type="checkbox" id="chkPompAanvoer"   	onclick="setCheckCookie('chkPompAanvoer');cmdRefreshGrafiek();		" >Aanvoer 
+	<input type="checkbox" id="chkPompRetour" 	onclick="cmdRefreshGrafiek();setCheckCookie('chkPompRetour');	" >Grensmuur 
+
+	<input type="checkbox" id="chkTempBuiten" 	onclick="setCheckCookie('chkTempBuiten');cmdRefreshGrafiek();		" >Buiten 
+	<input type="checkbox" id="chkTempCv" 	onclick="setCheckCookie('chkTempCv');cmdRefreshGrafiek();		" >CV 
+	<input type="checkbox" id="chkTempWater" 	onclick="setCheckCookie('chkTempWater');cmdRefreshGrafiek();		" >Boiler  
+
+	<input type="checkbox" id="chkLinuxMem" 	onclick="setCheckCookie('chkLinuxMem');cmdRefreshGrafiek();	" >LinuxMem
+
+ 
+	<input type="checkbox" id="chkGas" 		onclick="setCheckCookie('chkGas');cmdRefreshGrafiek();		" >Gas 
+	<input type="checkbox" id="chkCloseIn" 	onclick="setCheckCookie('chkCloseIn');cmdRefreshGrafiek();	" >CloseIn 
+	
+</span>
+
+</section>
