@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+
+<project name="domo.www" default="upload" basedir=".">
+
+    <description>
+        simple example build file
+    </description>  
+     
+    <!-- set global properties for this build -->  
+     
+    <property name="src" location="./src"/>
+    <property name="build" location="./bin"/>
+    <property name="dist"  location="./bin"/>
+ 
+    <target name="init">
+      <!-- Create the time stamp -->
+      <tstamp/>
+      <!-- Create the build directory structure used by compile -->
+      <mkdir dir="${build}"/>   
+      <mkdir dir="${dist}"/>   
+    	
+    </target>
+
+    <target name="compile" depends="init"
+        description="compile the source " >
+      <!-- Compile the java code from ${src} into ${build} -->
+      <javac srcdir="${src}" destdir="${build}">
+      <classpath>
+
+         <fileset dir="/usr/share/java">
+        	<include name="**/mysql-connector-java-5.1.16.jar"/>
+
+      	</fileset>
+		<fileset dir="/opt/pi4j/lib">
+        	<include name="**/*.jar"/>
+      	</fileset>
+      </classpath>
+        </javac>   
+    <!--
+         <pathelement path="/opt/pi4j/"/>    <pathelement path="${java.class.path}/"/>
+        <pathelement path="${additional.path}"/>
+       -classpath .:classes:/opt/pi4j/lib/'*':./bin -->
+    </target>
+
+    <target name="dist" depends="compile"
+        description="generate the distribution" >
+        
+      <!-- Create the distribution directory 
+      <mkdir dir="${dist}/lib"/>   --> 
+
+      <!-- Put everything in ${build} into the LooDomo-${DSTAMP}.jar file
+      <jar jarfile="${dist}/lib/LooDomo-${DSTAMP}.jar" basedir="${build}"/>
+      <jar ...   manifest="${manifest.file}">
+--> 
+<!--  
+      <jar jarfile="${dist}/LooDomo.jar" basedir="${build}">
+       	 <manifest>
+      		<attribute name="Main-Class" value="LooDomoSvc"/>
+    	  </manifest>
+    	  <zipgroupfileset dir="/opt/pi4j/lib" includes="**/*.jar" />
+       </jar>
+ -->
+   		<exec dir="${dist}" executable="/bin/sh">
+   			<arg line="-c 'sudo service domo restart'"/>
+  		</exec>
+   </target>
+   
+    <target name="restart" depends="dist" description="restart services">
+   		<exec dir="${dist}" executable="/bin/sh">
+ <!--   		<arg value="sudo"/>
+    		<arg value="service"/>
+    		<arg value="domo"/>
+    		<arg value="restart"/> -->
+   			<arg line="-c 'sudo service domo restart'"/>
+   		 <!-- 	 <redirector inputstring="sudopassword"/> -->
+  		</exec>
+	</target> 
+
+	  <target name="upload-JQuery">
+	  	
+		  <scp  todir="${sftp}:/var/www/home/scripts/jquery" >
+		    <fileset dir="scripts/jquery">
+		      <include name="**/*.js"/>
+		    </fileset>
+		  </scp>  	
+	
+	 </target>	
+	
+	
+	 
+	
+  <target name="upload">
+  	
+  	<!--copy file="Pomp.html" tofile="Pomp.php"/-->
+  	<!--scp file="Pomp.php" todir="root:ip@raspbian2:/var/www/home/"/-->
+
+	  <scp  todir="${sftp}:/var/www/home/styles" >
+	    <fileset dir="styles">
+	      <include name="**/*.css"/>
+ 			<modified>
+      		<param name="cache.cachefile" value="localdev.cache"/>
+    	  	</modified>
+	    </fileset>
+	  </scp> 
+	  	
+	  <scp  todir="${sftp}:/var/www/home/" >
+	    <fileset dir="">
+	      
+	      <include name="**/*.html"/>
+		  <include name="**/*.htm"/>
+	      <include name="*.js"/>
+	      <exclude name="**/context.js"/>
+		  <exclude name="**/Backup**"/>
+ 			<modified>
+      		<param name="cache.cachefile" value="localdev.cache"/>
+    	  	</modified>
+	    </fileset>
+	  </scp> 
+	  
+	  <scp  todir="${sftp}:/var/www/home/images" >
+	    <fileset dir="images">
+	      <include name="**/*.*"/>
+ 			<modified>
+      		<param name="cache.cachefile" value="localdev.cache"/>
+    	  	</modified>	      
+	    </fileset>
+	  </scp>  
+
+	  <scp  todir="${sftp}:/var/www/home/scripts" >
+	    <fileset dir="scripts">
+	      <include name="**/*.js"/>
+	      <include name="**/socketGetMsg.php"/>
+	      <exclude name="**/jquery/**"/>
+	      <exclude name="**/RGraph/**"/>
+		  <exclude name="**/Backup**"/>
+ 			<modified>
+      		<param name="cache.cachefile" value="localdev.cache"/>
+    	  	</modified>		  
+	    </fileset>
+	  </scp>
+	  	   
+ 
+  	<!--
+
+	  <sshexec host="somehost"
+		username="dude"
+		password="yo"
+		command="touch somefile"/>
+
+	  <scp todir="user:password@somehost:/home/chuck">
+	    <fileset dir="src_dir" excludes="**/*.java"/>
+	  </scp>
+-->	
+	
+ </target>	
+	
+ </project>
