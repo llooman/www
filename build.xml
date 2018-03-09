@@ -21,73 +21,15 @@
     	
     </target>
 
-    <target name="compile" depends="init"
-        description="compile the source " >
-      <!-- Compile the java code from ${src} into ${build} -->
-      <javac srcdir="${src}" destdir="${build}">
-      <classpath>
 
-         <fileset dir="/usr/share/java">
-        	<include name="**/mysql-connector-java-5.1.16.jar"/>
-
-      	</fileset>
-		<fileset dir="/opt/pi4j/lib">
-        	<include name="**/*.jar"/>
-      	</fileset>
-      </classpath>
-        </javac>   
-    <!--
-         <pathelement path="/opt/pi4j/"/>    <pathelement path="${java.class.path}/"/>
-        <pathelement path="${additional.path}"/>
-       -classpath .:classes:/opt/pi4j/lib/'*':./bin -->
-    </target>
-
-    <target name="dist" depends="compile"
-        description="generate the distribution" >
-        
-      <!-- Create the distribution directory 
-      <mkdir dir="${dist}/lib"/>   --> 
-
-      <!-- Put everything in ${build} into the LooDomo-${DSTAMP}.jar file
-      <jar jarfile="${dist}/lib/LooDomo-${DSTAMP}.jar" basedir="${build}"/>
-      <jar ...   manifest="${manifest.file}">
---> 
-<!--  
-      <jar jarfile="${dist}/LooDomo.jar" basedir="${build}">
-       	 <manifest>
-      		<attribute name="Main-Class" value="LooDomoSvc"/>
-    	  </manifest>
-    	  <zipgroupfileset dir="/opt/pi4j/lib" includes="**/*.jar" />
-       </jar>
- -->
-   		<exec dir="${dist}" executable="/bin/sh">
-   			<arg line="-c 'sudo service domo restart'"/>
-  		</exec>
-   </target>
-   
-    <target name="restart" depends="dist" description="restart services">
-   		<exec dir="${dist}" executable="/bin/sh">
- <!--   		<arg value="sudo"/>
-    		<arg value="service"/>
-    		<arg value="domo"/>
-    		<arg value="restart"/> -->
-   			<arg line="-c 'sudo service domo restart'"/>
-   		 <!-- 	 <redirector inputstring="sudopassword"/> -->
-  		</exec>
-	</target> 
-
-	  <target name="upload-JQuery">
-	  	
+	<target name="upload-JQuery">	  	
 		  <scp  todir="${sftp}:/var/www/home/scripts/jquery" >
 		    <fileset dir="scripts/jquery">
 		      <include name="**/*.js"/>
 		    </fileset>
-		  </scp>  	
-	
+		  </scp>  		
 	 </target>	
-	
-	
-	 
+			 
 	
   <target name="upload">
   	
@@ -146,11 +88,7 @@
 		username="dude"
 		password="yo"
 		command="touch somefile"/>
-
-	  <scp todir="user:password@somehost:/home/chuck">
-	    <fileset dir="src_dir" excludes="**/*.java"/>
-	  </scp>
--->	
+	-->	
 	
  </target>	
 	
