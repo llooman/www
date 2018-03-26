@@ -80,7 +80,15 @@
     	  	</modified>		  
 	    </fileset>
 	  </scp>
-	  	   
+	  
+	  <scp todir="${sftp}:/opt/www" >
+	    <fileset dir="">
+	      <include name="build.xml"/>
+	      <modified>
+      		<param name="cache.cachefile" value="localdev.cache"/>
+    	  </modified>
+	    </fileset>
+	 </scp> 	   
  
   	<!--
 

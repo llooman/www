@@ -148,7 +148,7 @@ function getJsonData ( cmd, arrivedDataFunc )
 			error = true;
 			if(!refreshError)
 			{
-				alert("getJsonData: error"+ data);
+				alert("getJsonData: url="+strUrl+", parms="+parms+", data="+ data);
 				refreshError = true;
 			}
  
